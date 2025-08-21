@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { FlowersCreateDto } from './flowers.dto';
 import { ConfigService } from '@nestjs/config';
-
+import { EnumAppMode } from '../types';
 @Injectable()
 export class FlowersService {
   constructor(
@@ -10,7 +10,7 @@ export class FlowersService {
     private readonly configService: ConfigService,
   ) {}
   findAll() {
-    console.log(this.configService.get('MODE'));
+    console.log(this.configService.get<EnumAppMode>('MODE'));
     this.prisma.flower.findMany();
   }
 
