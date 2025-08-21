@@ -4,8 +4,8 @@ import { FlowersModule } from './flowers/flowers.module';
 import { MicroserviceModule } from './microservice/microservice.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { optionsConfig } from './microservice.config';
+import { ClientsModule } from '@nestjs/microservices';
+import { optionsConfig } from './config/microservice.config';
 
 @Module({
   imports: [
@@ -15,8 +15,8 @@ import { optionsConfig } from './microservice.config';
     ClientsModule.register([
       {
         name: 'ORDER-SERVICE',
-        transport: Transport.TCP,
-        options: optionsConfig,
+        transport: optionsConfig.transport,
+        options: optionsConfig.options,
       },
     ]),
   ],

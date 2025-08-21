@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { optionsConfig } from './microservice.config';
+import { optionsConfig } from './config/microservice.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,9 +12,15 @@ async function bootstrap() {
   const microserviceApp =
     await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
       transport: Transport.TCP,
-      options: optionsConfig,
+      options: {
+        host: optionsConfig.options?.host,
+        port: optionsConfig.options?.port,
+      },
     });
   await microserviceApp.listen();
-  console.log('microservice is listening on port: ', optionsConfig.port);
+  console.log(
+    'microservice is listening on port: ',
+    optionsConfig.options?.port,
+  );
 }
 bootstrap();

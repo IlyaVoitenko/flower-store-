@@ -1,18 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import {
-  ClientProxy,
-  ClientProxyFactory,
-  Transport,
-} from '@nestjs/microservices';
-import { optionsConfig } from './microservice.config';
+import { ClientProxy, ClientProxyFactory } from '@nestjs/microservices';
+import { optionsConfig } from './config/microservice.config';
 
 @Injectable()
 export class AppService {
   private client: ClientProxy;
   constructor() {
     this.client = ClientProxyFactory.create({
-      transport: Transport.TCP,
-      options: optionsConfig,
+      transport: optionsConfig.transport,
+      options: optionsConfig.options,
     });
   }
 
