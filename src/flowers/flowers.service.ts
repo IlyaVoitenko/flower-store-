@@ -11,7 +11,7 @@ export class FlowersService {
   ) {}
   findAll() {
     console.log(this.configService.get<EnumAppMode>('MODE'));
-    this.prisma.flower.findMany();
+    return this.prisma.flower.findMany();
   }
 
   createFlower(dto: FlowersCreateDto) {
