@@ -1,21 +1,22 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppModule } from 'src/app.module';
-import request from 'supertest';
+import * as request from 'supertest';
 
 describe('FlowerController (e2e)', () => {
   let app: INestApplication;
 
   beforeAll(async () => {
     const moduleMixture: TestingModule = await Test.createTestingModule({
-      providers: [AppModule],
+      imports: [AppModule],
     }).compile();
     app = moduleMixture.createNestApplication();
     app.useGlobalPipes(new ValidationPipe());
     await app.init();
   });
   it('/flowers (GET)', () => {
-    return request(app.getHttpServer())
+    return request
+      .default(app.getHttpServer())
       .get('/flowers')
       .expect(200)
       .expect([

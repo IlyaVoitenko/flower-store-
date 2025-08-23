@@ -8,6 +8,6 @@ export class AppController {
   @Get()
   sendMessage() {
     this.appService.sendMessage();
-    return 'message send';
+    return 'Hello World!';
   }
 }
